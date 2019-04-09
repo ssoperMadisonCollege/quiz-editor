@@ -48,7 +48,10 @@ constructor(private qSvc: QuizService) {
 
   ngOnInit() {
     // console.log(this.qSvc.getQuizzes())
-    this.quizzes = this.qSvc.getQuizzes();
+    this.quizzes = this.qSvc.getQuizzes().map(x => ({
+      name: x.name
+      , numberOfQuestions: x.numberQuestions
+    }));
   };
 
   title = 'quiz-editor';
