@@ -31,16 +31,20 @@
     <div class="col-md-8" *ngIf="selectedQuiz">
       <br>
       <button class="btn btn-outline-success">Save</button>
-      <button class="btn btn-btn-link">Cancel</button>
+      <button class="btn btn-link">Cancel</button>
       <br>
       <br>
       <div class="card">
         <div class="card-header">
           General
         </div>
+
         <div class="card-body">
-           {{ selectedQuiz.name }}
+          <input type="text" 
+          [(ngModel)]="selectedQuiz.name"
+          class="form-control">
         </div>
+        
       </div>
       <br>
       <div class="card">
