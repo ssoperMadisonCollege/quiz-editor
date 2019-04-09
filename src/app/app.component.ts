@@ -47,11 +47,14 @@ constructor(private qSvc: QuizService) {
   }
 
   ngOnInit() {
-    // console.log(this.qSvc.getQuizzes())
-    this.quizzes = this.qSvc.getQuizzes().map(x => ({
-      name: x.name
-      , numberOfQuestions: x.numberQuestions
-    }));
+    this.qSvc.getQuizzes().subscribe(
+      (data) => {
+        console.log(data)
+      }
+      , (error) => {
+        console.log(error)
+      }
+    );
   };
 
   title = 'quiz-editor';
