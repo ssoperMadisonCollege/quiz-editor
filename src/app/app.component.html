@@ -83,13 +83,13 @@
         <div  class="row" 
               *ngFor="let q of selectedQuiz.questions">
           <br>
-          <div class="col-md-8">
+          <div class="col-md-9">
               <input
                 type="text" 
                 [(ngModel)]="q.name"
                 class="form-control">
           </div>
-          <div class="col-md-4">
+          <div class="col-md-3">
               <button class="btn btn-outline-danger" (click)="removeQuestion(q)">Remove</button>
           </div>
           <br>
