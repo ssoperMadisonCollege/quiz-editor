@@ -68,6 +68,13 @@ export class AppComponent implements OnInit {
       x => x !== removeCandidate);
   }
 
+  // Remove an existing quiz from the quiz list...
+  deleteQuiz(deleteCandidate: QuizDisplay) {
+    this.quizzes = this.quizzes.filter(
+      // Output all the quizzes except this quiz (the one being passed into this method)
+      x => x !== deleteCandidate);
+  }
+
   serviceDown = false;
 
   ngOnInit() {
