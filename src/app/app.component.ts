@@ -75,6 +75,11 @@ export class AppComponent implements OnInit {
       x => x !== deleteCandidate);
   }
 
+  // reset the state of the current quiz - basically stop viewing the deleted quiz.
+  resetQuizState = () => {
+    this.selectedQuiz = undefined;
+  }
+
   serviceDown = false;
 
   ngOnInit() {

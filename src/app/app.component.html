@@ -16,8 +16,7 @@
       <br>
       <button 
         (click)="addNewQuiz()"
-        class="btn btn-outline-primary"
-        >
+        class="btn btn-outline-primary">
           Add New Quiz
       </button>
       <br>
@@ -48,7 +47,11 @@
     </div>
     <div class="col-md-8" *ngIf="selectedQuiz">
       <br>
-      <button class="btn btn-outline-success">Save</button>
+      <button 
+        class="btn btn-outline-success"
+        (click)="resetQuizState()">
+        Save
+      </button>
       <button class="btn btn-link">Cancel</button>
       <br>
       <br>
