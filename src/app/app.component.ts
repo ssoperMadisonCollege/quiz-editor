@@ -60,6 +60,14 @@ export class AppComponent implements OnInit {
     console.log("You've added a question!");
   }
 
+  // Remove an existing question from the question list...
+  // Note the question being passed in: it is the q object in the current *ngFor index from the template
+  removeQuestion(removeCandidate: QuestionDisplay) {
+    this.selectedQuiz.questions = this.selectedQuiz.questions.filter(
+      // Output all the questions except this question (the one being passed to this method)
+      x => x !== removeCandidate);
+  }
+
   serviceDown = false;
 
   ngOnInit() {
