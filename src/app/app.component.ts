@@ -49,6 +49,17 @@ export class AppComponent implements OnInit {
     this.selectedQuiz = newQuiz; 
   }
 
+  // Create new question list with the new question...
+  //
+  // a.k.a "Add the new question to the list"
+  addNewQuestion() {
+    this.selectedQuiz.questions = [
+      ...this.selectedQuiz.questions
+      , { name: "new question" }
+    ];
+    console.log("You've added a question!");
+  }
+
   serviceDown = false;
 
   ngOnInit() {
