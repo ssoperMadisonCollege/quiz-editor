@@ -110,6 +110,73 @@ export class AppComponent implements OnInit {
 
   // Read-only/getter property..
   get titleColor() {
-    return this.myWidth > 400 ? "red" : "blue";
+    return this.myWidth > 400 
+      ? "red" 
+      : "blue";
+  }
+
+  promisesOne() {
+    const n = this.qSvc.getNumberPromise(true);
+    console.log(n); // ???
+
+    const anotherNumberPromise = this.qSvc.getNumberPromise(false);
+    console.log(anotherNumberPromise); // ??? Maybe ZoneAwarePromise
+
+    anotherNumberPromise.then(
+      number => console.log(number)
+    ).catch(
+      error => console.log(error)
+    );
+
+    n.then(
+      number => {
+        console.log(".then")
+        console.log(number) // ???
+      }
+    ).catch(
+      error => {
+        console.log(".catch")
+        console.log(error)
+      }
+    );
+  }
+
+  // async/await https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/async_function#Description
+  async promisesTwo() {
+    try {
+      const n1= await this.qSvc.getNumberPromise(true);
+      console.log(n1); // ??? what is n1, it's 42 from qSvc service 
+      const n2 = await this.qSvc.getNumberPromise(false);
+      console.log(n2);
+    } catch (error) {
+      console.log("catch block");
+      console.log(error);
+    }
+  }
+
+  async promisesThree() {
+    // Parlor trick for concurrent promise execution...
+    try {
+      const n1 = this.qSvc.getNumberPromise(true);
+      console.log(n1); // ??? this will be a promise
+      const n2 = this.qSvc.getNumberPromise(true);
+      console.log(n2); // ??? this will be a promise
+
+      // give me an array of promises, I'll 
+      // fire them all off at the same time, then wait until I hear 
+      // back from both and output the results
+      const results = await Promise.all([n1, n2]);
+      console.log(results);
+
+      // give me an array of promises, I'll
+      // fire them all off at the same time, then wait until I hear
+      // back from the first one that comes back and output that result
+      const results2 = await Promise.race([n1, n2]);
+      console.log(results2); 
+
+      
+    } catch (error) {
+      console.log(error);
+    }
   }
 }
