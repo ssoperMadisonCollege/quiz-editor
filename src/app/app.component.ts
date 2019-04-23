@@ -93,6 +93,24 @@ export class AppComponent implements OnInit {
     });
   }
 
+  saveBatchEdits() {
+    const editedQuizzes = this.getEditedQuizzes().map(x => ({
+      name: x.name
+      , originalName: x.name
+      , questions: x.questions
+    }));
+
+    const addedQuizzes = this.getAddedQuizzes().map(x => ({
+      quizName: x.name
+      , quizQuestions:x.questions.map(x => x.name)
+    }));
+
+    this.qSvc.saveQuizzes(editedQuizzes, addedQuizzes).subscribe(
+      numberOfChangedQuizzesSuccessfullySaved => console.log(numberOfChangedQuizzesSuccessfullySaved)
+      , error => console.log(error)
+    );
+  }
+
   cancelBatchEdits() {
     this.loadAllQuizzes();
     this.selectQuiz(undefined);
@@ -103,15 +121,23 @@ export class AppComponent implements OnInit {
   }
 
   get numberOfEditedQuizzes() {
+    return this.getEditedQuizzes.length;
+  }
+
+  getEditedQuizzes() {
     return this.quizzes
-      .filter(x =>
-        (!x.markedForDelete && x.originalName != "Untitled Quiz")
-        && (x.name !== x.originalName || x.questionsChecksum !== x.questions.map(x => x.name).join('~'))
-      ).length;
+    .filter(x =>
+      (!x.markedForDelete && x.originalName != "Untitled Quiz")
+      && (x.name !== x.originalName || x.questionsChecksum !== x.questions.map(x => x.name).join('~'))
+    );
   }
   
   get numberOfAddedQuizzes() {
-    return this.quizzes.filter(x => !x.markedForDelete && x.originalName === "Untitled Quiz").length;
+    return this.getAddedQuizzes().length;
+  }
+
+  getAddedQuizzes() {
+    return this.quizzes.filter(x => !x.markedForDelete && x.originalName === "Untitled Quiz");
   }
 
   title = 'quiz-editor';
