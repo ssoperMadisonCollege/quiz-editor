@@ -100,12 +100,16 @@ export class AppComponent implements OnInit {
   get numberOfEditedQuizzes() {
     return this.quizzes
     .filter(x => 
-      !x.markedForDelete
+      (!x.markedForDelete && x.originalName != "Untitled Quiz")
       && (
         x.name !== x.originalName
         || 
         x.questionsChecksum !== x.questions.map(x => x.name).join('~')
       )).length;
+  }
+
+  get numberOfAddedQuizzes() {
+    return this.quizzes.filter(x => !x.markedForDelete && x.name === "Untitled Quiz").length;
   }
 
   title = 'quiz-editor';
